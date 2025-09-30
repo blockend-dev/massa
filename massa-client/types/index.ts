@@ -1,13 +1,15 @@
+import { Address } from "@massalabs/massa-web3";
+
 export interface Project {
-  id: BigInt;
+  id: bigint;
   client: string;
   freelancer: string;
   title: string;
   description: string;
-  budget: BigInt;
-  deadline: BigInt;
-  status: string;
-  createdAt: BigInt;
+  budget: bigint;
+  deadline: bigint;
+  status: ProjectStatus;
+  createdAt: bigint;
   category: string;
   skills: string[];
 }
@@ -19,7 +21,7 @@ export interface Milestone {
   description: string;
   amount: number;
   deadline: number;
-  status: number;
+  status: MilestoneStatus;
   deliverables: string;
   completedAt: number;
   paidAt: number;
@@ -40,12 +42,12 @@ export enum ProjectStatus {
   InProgress = 1,
   Completed = 2,
   Cancelled = 3,
-  Disputed = 4
+  Disputed = 4,
 }
 
 export enum MilestoneStatus {
   Pending = 0,
   Completed = 1,
   Approved = 2,
-  Paid = 3
+  Paid = 3,
 }

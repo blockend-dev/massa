@@ -1,54 +1,61 @@
-import { useEffect, useState, useCallback } from "react";
-import { getWallets, Wallet } from "@massalabs/wallet-provider";
+'use client';
 
-export function useMassaWallet() {
+import { useEffect, useState, useCallback } from 'react';
+import { getWallets, Wallet } from '@massalabs/wallet-provider';
+
+type MassaAccount = {
+  address: string;
+};
+
+export const useMassaWallet = () => {
   const [wallet, setWallet] = useState<Wallet | null>(null);
-  const [account, setAccount] = useState<string | null>(null);
+  const [account, setAccount] = useState<MassaAccount | null>(null);
   const [connected, setConnected] = useState(false);
-  const [network, setNetwork] = useState<any>(null);
-
-  // load wallet on mount
-  useEffect(() => {
-    (async () => {
-      const wallets = await getWallets();
-      if (wallets.length > 0) {
-        const w = wallets[0];
-        setWallet(w);
-      }
-    })();
-  }, []);
 
   const connect = useCallback(async () => {
-    if (!wallet) return false;
-    const ok = await wallet.connect();
-    if (!ok) return false;
-
-    setConnected(true);
-
-    const accounts = await wallet.accounts();
-    if (accounts.length > 0) {
-      setAccount(accounts[0].address);
+    const wallets = await getWallets();
+    if (wallets.length === 0) {
+      console.error('No Massa wallets found');
+      return;
     }
 
-    const net = await wallet.networkInfos();
-    setNetwork(net);
+    const selectedWallet = wallets[0];
+    const isConnected = await selectedWallet.connect();
 
-    // listen for account changes
-    wallet.listenAccountChanges((addr) => {
-      setAccount(addr);
-    });
+    if (isConnected) {
+      setWallet(selectedWallet);
 
-    return true;
-  }, [wallet]);
+      const accounts = await selectedWallet.accounts();
+      if (accounts.length > 0) {
+        setAccount({ address: accounts[0].address });
+        setConnected(true);
+      }
+
+      // Listen for account changes
+      selectedWallet.listenAccountChanges((addr: string) => {
+        setAccount({ address: addr });
+      });
+    }
+  }, []);
 
   const disconnect = useCallback(async () => {
     if (wallet) {
       await wallet.disconnect();
     }
-    setConnected(false);
+    setWallet(null);
     setAccount(null);
-    setNetwork(null);
+    setConnected(false);
   }, [wallet]);
 
-  return { wallet, account, connected, network, connect, disconnect };
-}
+  // Auto-connect if possible
+  useEffect(() => {
+    connect();
+  }, [connect]);
+
+  return {
+    connected,
+    account,
+    connect,
+    disconnect,
+  };
+};
