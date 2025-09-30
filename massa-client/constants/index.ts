@@ -1,0 +1,1 @@
+export const CONTRACT_ADDRESS="AS1u6jwiEuzX5gEAHgkHb2959Vd5RpfHV8RmwSRjgN5MpJRuSrwB"
