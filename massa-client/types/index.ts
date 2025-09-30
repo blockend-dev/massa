@@ -1,13 +1,13 @@
 export interface Project {
-  id: number;
+  id: BigInt;
   client: string;
   freelancer: string;
   title: string;
   description: string;
-  budget: number;
-  deadline: number;
-  status: number;
-  createdAt: number;
+  budget: BigInt;
+  deadline: BigInt;
+  status: string;
+  createdAt: BigInt;
   category: string;
   skills: string[];
 }
