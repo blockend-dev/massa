@@ -1,5 +1,7 @@
+"use client"
+
 import { Project, ProjectStatus } from '../../../types';
-import { Button } from '@massalabs/react-ui-kit';
+import { Button } from '@/components/ui/button';
 import { Calendar, User, Coins, Tag } from 'lucide-react';
 
 interface ProjectCardProps {

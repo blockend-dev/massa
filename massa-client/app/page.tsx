@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useMassaWallet } from '@/hooks/useMassaWallet';
-import { Button } from '@massalabs/react-ui-kit';
+import { Button } from '@/components/ui/button';
 import { Plus, Search } from 'lucide-react';
 
 import { ConnectWallet } from '@/app/components/ui/ConnectWallet';
@@ -22,7 +22,7 @@ export default function Home() {
   useEffect(() => {
     loadProjects();
   }, []);
-
+  
   const loadProjects = async () => {
     try {
       const openProjects = await getOpenProjects();
@@ -55,7 +55,7 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-2xl font-bold text-gray-900">FreelanceDApp</h1>
+              <h1 className="text-2xl font-bold text-gray-900">MassaLance</h1>
             </div>
             <ConnectWallet />
           </div>

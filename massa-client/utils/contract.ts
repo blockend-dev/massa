@@ -1,11 +1,16 @@
 import {
+  Account,
   Args,
   JsonRpcProvider,
   SmartContract,
 } from "@massalabs/massa-web3";
+import 'dotenv/config';
 import { CONTRACT_ADDRESS } from "../constants";
 
+// const account = await Account.fromEnv();
+
 const client = JsonRpcProvider.buildnet();
+console.log(client,'client')
 
 /**
  * Read-only contract call

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@massalabs/react-ui-kit';
+import { Button } from '@/components/ui/button';
 import { Wallet, LogOut } from 'lucide-react';
 import { useMassaWallet } from '@/hooks/useMassaWallet';
 
