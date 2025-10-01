@@ -13,7 +13,7 @@ export const ConnectWallet = () => {
         <span className="text-sm text-gray-600">
           {account.address.slice(0, 8)}...{account.address.slice(-6)}
         </span>
-        <Button variant="ghost" onClick={disconnect}>
+        <Button variant="secondary" onClick={disconnect}>
           <LogOut className="w-4 h-4 mr-2" />
           Disconnect
         </Button>
